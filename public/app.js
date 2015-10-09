@@ -20,6 +20,11 @@ angular.module('iotControl',
             templateUrl: 'views/homeView/homeView.tpl.html',
             controller: 'HomeViewCtrl as ctrl'
         })
+        .state('add-token', {
+            url: '/addtoken/{returnView}',
+            templateUrl: 'views/addTokensView/addTokensView.tpl.html',
+            controller: 'AddTokensCtrl as ctrl'
+        })
         .state('particle-view', {
             url: '/particle',
             templateUrl: 'views/particleView/particleView.tpl.html',
