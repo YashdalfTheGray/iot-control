@@ -34,31 +34,21 @@ angular.module('iotControl')
             }
 
             vm.callFunction = function(deviceId, func, arg, idToClear) {
-                if (arg) {
-                    particleSvc.callFunction(deviceId, func, arg).then(
-                        function(result) {
-                            $mdToast.show(
-                                $mdToast.simple()
-                                .content('Function ' + func + ' executed successfully!')
-                                .position('top right')
-                                .hideDelay(3000)
-                            );
-                        },
-                        function(error) {
-                            console.log('Function ' + func + ' Failed!');
-                            console.log(error);
-                        }
-                    );
-                    clearInputSvc.clearInputBox(idToClear);
-                }
-                else {
-                    $mdToast.show(
-                        $mdToast.simple()
-                        .content('Function argument required!')
-                        .position('top right')
-                        .hideDelay(3000)
-                    );
-                }
+                particleSvc.callFunction(deviceId, func, arg).then(
+                    function(result) {
+                        $mdToast.show(
+                            $mdToast.simple()
+                            .content('Function ' + func + ' executed successfully!')
+                            .position('top right')
+                            .hideDelay(3000)
+                        );
+                    },
+                    function(error) {
+                        console.log('Function ' + func + ' Failed!');
+                        console.log(error);
+                    }
+                );
+                clearInputSvc.clearInputBox(idToClear);
             }
         }
     ]
