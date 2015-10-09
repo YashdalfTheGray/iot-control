@@ -1,0 +1,11 @@
+<md-content layout-padding>
+    <h2 flex>Add access tokens</h2>
+    <form flex>
+        <md-input-container flex>
+            <label>Particle</label>
+            <input id="particle-token" ng-model="ctrl.particleToken" name="particleToken">
+        </md-input-container>
+        <p></p>
+        <md-button class="md-raised md-accent" ng-click="ctrl.saveTokens()" flex>Save</md-button>
+    </form>
+</md-content>
