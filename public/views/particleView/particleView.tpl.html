@@ -1,3 +1,22 @@
 <md-content layout-padding>
     <h2 flex>Particle</h2>
+    
+    <md-content flex>
+        <md-card ng-repeat="d in ctrl.devices track by $index">
+            <md-card-content>
+                <h2 class="md-title">{{d.name}}</h2>
+                <p>Available functions</p>
+                <md-radio-group ng-model="ctrl.funcName[$index]">
+                    <md-radio-button ng-repeat="f in d.functions" ng-value="f" class="md-primary">{{f}}</md-radio-button>
+                </md-radio-group>
+                <md-input-container flex>
+                    <label>Function argument</label>
+                    <input id="function-argument{{$index}}" ng-model="ctrl.funcArg[$index]" name="functionArgument">
+                </md-input-container>
+            </md-card-content>
+            <div class="md-actions" layout="row" layout-align="end center">
+                <md-button ng-click="ctrl.callFunction(d.id, ctrl.funcName[$index], ctrl.funcArg[$index], 'function-argument' + $index)">Run</md-button>
+            </div>
+        </md-card>
+    </md-content>
 </md-content>
