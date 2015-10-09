@@ -33,11 +33,44 @@
 
     <!-- App JS -->
     <script src="app.js"></script>
+    <script src="services/accessTokenSvc/accessTokenSvc.js"></script>
+    <script src="services/clearInputSvc/clearInputSvc.js"></script>
+    <script src="services/particleSvc/particleSvc.js"></script>
+    <script src="navigation/toolbar.js"></script>
+    <script src="navigation/sidebar.js"></script>
+    <script src="views/homeView/homeView.js"></script>
+    <script src="views/particleView/particleView.js"></script>
 
 </head>
 <body ng-app="iotControl" layout="column">
 
-    <md-content flex ui-view class="scroll-container"></md-content>
+    <md-toolbar ng-controller="ToolbarCtrl as ctrl">
+        <div class="md-toolbar-tools">
+            <md-button hide-gt-md class="md-icon-button" aria-label="Menu" ng-click="ctrl.showNav()">
+                <i class="material-icons icon-button-adjust">menu</i>
+            </md-button>
+            <h2 ng-if="!ctrl.isHome()"><span><a ui-sref="home">IoT Controller</a></span></h2>
+            <h2 ng-if="ctrl.isHome()"><span>IoT Controller</span></h2>
+        </div>
+    </md-toolbar>
+
+    <div flex layout="row">
+        <md-sidenav md-is-locked-open="$mdMedia('gt-md')" class="md-whiteframe-z2" md-component-id="services" layout="column">
+            <md-content ng-controller="SidebarCtrl as ctrl" flex>
+                <div layout="column" flex>
+                    <div flex>
+                        <md-list>
+                            <md-item ng-repeat="s in ctrl.services">
+                                <h3 class="services-list-item"><span ng-click="ctrl.goTo(s.state)">{{s.name}}</span></h3>
+                            </md-item>
+                        </md-list>
+                    </div>
+                </div>
+            </md-content>
+        </md-sidenav>
+
+        <md-content flex ui-view class="scroll-container"></md-content>
+    </div>
 
 </body>
 </html>
