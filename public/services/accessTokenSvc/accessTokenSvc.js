@@ -3,34 +3,39 @@
 angular.module('iotControl')
 .factory('accessTokenSvc',
     [
-        function() {
+        '$rootScope',
+        function($rootScope) {
             "use strict";
 
-            var tokenList = [];
+            $rootScope.tokenList = [];
 
             this.addToken = function(service, token) {
                 if (service && token) {
-                    tokenList.push({ service: service, token: token });
+                    $rootScope.tokenList.push({ service: service, token: token });
                 }
             };
 
             this.removeToken = function(service) {
-                _.remove(tokenList, function(i) {
+                _.remove($rootScope.tokenList, function(i) {
                     return i.service === service;
                 });
             };
 
             this.getToken = function(service) {
-                _.result(_.find(tokenList, function(i) {
+                return _.result(_.find($rootScope.tokenList, function(i) {
                     return i.service === service;
                 }), 'token');
             };
+
+            this.count = function() {
+                return $rootScope.tokenList.length;
+            }
 
             return {
                 addToken: this.addToken,
                 removeToken: this.removeToken,
                 getToken: this.getToken,
-                count: tokenList.length
+                count: this.count
             };
         }
     ]
