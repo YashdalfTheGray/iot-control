@@ -8,6 +8,7 @@ angular.module('iotControl')
             "use strict";
 
             var vm = this;
+            vm.askFor = $stateParams.askFor;
 
             vm.saveTokens = function() {
                 if (vm.particleToken) {

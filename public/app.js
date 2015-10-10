@@ -21,7 +21,7 @@ angular.module('iotControl',
             controller: 'HomeViewCtrl as ctrl'
         })
         .state('add-token', {
-            url: '/addtoken/{returnView}',
+            url: '/addtoken?returnView&askFor',
             templateUrl: 'views/addTokensView/addTokensView.tpl.html',
             controller: 'AddTokensCtrl as ctrl'
         })
