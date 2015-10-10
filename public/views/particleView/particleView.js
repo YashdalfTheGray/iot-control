@@ -9,7 +9,7 @@ angular.module('iotControl')
             vm.devices = [];
 
             if(!particleSvc.hasToken()) {
-                $state.go('add-token', { returnView: 'particle-view' });
+                particleSvc.askForToken();
             }
             else {
                 particleSvc.getDevices().then(

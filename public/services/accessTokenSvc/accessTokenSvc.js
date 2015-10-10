@@ -3,8 +3,8 @@
 angular.module('iotControl')
 .factory('accessTokenSvc',
     [
-        '$rootScope',
-        function($rootScope) {
+        '$rootScope', '$state',
+        function($rootScope, $state) {
             "use strict";
 
             $rootScope.tokenList = [];
@@ -31,11 +31,17 @@ angular.module('iotControl')
                 return $rootScope.tokenList.length;
             }
 
+            this.askForTokens = function(fromState, serviceName) {
+                var tokensToAskFor = serviceName || 'all';
+                $state.go('add-token', { returnView: fromState, askFor: tokensToAskFor });
+            }
+
             return {
                 addToken: this.addToken,
                 removeToken: this.removeToken,
                 getToken: this.getToken,
-                count: this.count
+                count: this.count,
+                askForTokens: this.askForTokens
             };
         }
     ]

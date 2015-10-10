@@ -9,7 +9,7 @@ angular.module('iotControl')
 
             var vm = this;
             if (accessTokenSvc.count() === 0) {
-                $state.go('add-token', { returnView: 'home' });
+                accessTokenSvc.askForTokens('home');
             }
         }
     ]
