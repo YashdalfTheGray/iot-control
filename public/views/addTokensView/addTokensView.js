@@ -1,7 +1,7 @@
 /* global angular */
 
 angular.module('iotControl')
-.controller('AddTokensCtrl',
+.controller('AddTokensViewCtrl',
     [
         '$state', '$stateParams', 'accessTokenSvc',
         function($state, $stateParams, accessTokenSvc) {

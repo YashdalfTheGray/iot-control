@@ -23,7 +23,7 @@ angular.module('iotControl',
         .state('add-token', {
             url: '/addtoken?returnView&askFor',
             templateUrl: 'views/addTokensView/addTokensView.tpl.html',
-            controller: 'AddTokensCtrl as ctrl'
+            controller: 'AddTokensViewCtrl as ctrl'
         })
         .state('particle-view', {
             url: '/particle',
