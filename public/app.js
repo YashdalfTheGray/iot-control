@@ -25,6 +25,11 @@ angular.module('iotControl',
             templateUrl: 'views/addTokensView/addTokensView.tpl.html',
             controller: 'AddTokensViewCtrl as ctrl'
         })
+        .state('createuser', {
+            url: '/createuser',
+            templateUrl: 'views/createUserView/createUserView.tpl.html',
+            controller: 'CreateUserViewCtrl as ctrl'
+        })
         .state('particle-view', {
             url: '/particle',
             templateUrl: 'views/particleView/particleView.tpl.html',
@@ -40,4 +45,7 @@ angular.module('iotControl',
             })
             .warnPalette('red');
     }
-]);
+])
+.constant('server', {
+    uri: 'https://iot-control.firebaseio.com'
+});
