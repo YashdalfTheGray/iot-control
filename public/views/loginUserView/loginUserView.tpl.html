@@ -1,0 +1,17 @@
+<md-content layout-padding>
+    <h2 flex>Login</h2>
+    <form flex>
+        <md-input-container flex>
+            <label>Username</label>
+            <input ng-model="ctrl.username">
+        </md-input-container>
+        <md-input-container flex>
+            <label>Password</label>
+            <input ng-model="ctrl.password" type="password">
+        </md-input-container>
+        <p></p>
+        <md-button class="md-raised md-accent" ng-click="ctrl.login()" flex>Login</md-button>
+    </form>
+    <md-divider></md-divider>
+    <md-button class="md-raised md-accent" ng-click="ctrl.signup()" flex>Signup</md-button>
+</md-content>

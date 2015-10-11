@@ -11,11 +11,11 @@
         </md-toolbar>
         <md-dialog-content layout="column">
             <md-input-container flex ng-if="ctrl.askFor === 'particle' || ctrl.askFor === 'all'">
-                    <label>Particle</label>
-                    <input id="particle-token" ng-model="ctrl.particleToken" name="particleToken">
-                </md-input-container>
-                <p></p>
-                <md-button class="md-raised md-accent" ng-click="ctrl.saveTokens()" flex>Save</md-button>
+                <label>Particle</label>
+                <input id="particle-token" ng-model="ctrl.particleToken" name="particleToken">
+            </md-input-container>
+            <p></p>
+            <md-button class="md-raised md-accent" ng-click="ctrl.saveTokens()" flex>Save</md-button>
         </md-dialog-content>
     </form>
 </md-dialog>

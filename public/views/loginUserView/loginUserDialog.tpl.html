@@ -1,0 +1,27 @@
+<md-dialog>
+    <md-toolbar>
+    <div class="md-toolbar-tools">
+        <h2>Login</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="ctrl.hide()">
+            <i class="material-icons icon-button-adjust">close</i>
+        </md-button>
+    </div>
+    </md-toolbar>
+    <md-dialog-content layout="column">
+        <form>
+            <md-input-container flex>
+                <label>Username</label>
+                <input ng-model="ctrl.username">
+            </md-input-container>
+            <md-input-container flex>
+                <label>Password</label>
+                <input ng-model="ctrl.password" type="password">
+            </md-input-container>
+            <p></p>
+            <md-button class="md-raised md-accent" ng-click="ctrl.login()" flex>Login</md-button>
+        </form>
+        <md-divider></md-divider>
+        <md-button class="md-raised md-accent" ng-click="ctrl.signup()" flex>Signup</md-button>
+    </md-dialog-content>
+</md-dialog>
