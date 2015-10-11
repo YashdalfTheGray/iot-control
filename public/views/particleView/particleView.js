@@ -8,10 +8,7 @@ angular.module('iotControl')
             var vm = this;
             vm.devices = [];
 
-            if(!particleSvc.hasToken()) {
-                particleSvc.askForToken();
-            }
-            else {
+            function getParticleDevices() {
                 particleSvc.getDevices().then(
                     function(result) {
                         _.forEach(result.data, function(device) {
@@ -31,6 +28,20 @@ angular.module('iotControl')
                         console.log(error);
                     }
                 );
+            }
+
+            if(!particleSvc.hasToken()) {
+                particleSvc.askForToken().then(
+                    function() {
+                        getParticleDevices();
+                    },
+                    function(error) {
+                        console.log(error);
+                    }
+                );
+            }
+            else {
+                getParticleDevices();
             }
 
             vm.callFunction = function(deviceId, func, arg, idToClear) {

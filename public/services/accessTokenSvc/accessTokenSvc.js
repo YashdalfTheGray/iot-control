@@ -3,45 +3,93 @@
 angular.module('iotControl')
 .factory('accessTokenSvc',
     [
-        '$rootScope', '$state',
-        function($rootScope, $state) {
+        '$rootScope', '$q', '$state', '$mdMedia', '$mdDialog',
+        function($rootScope, $q, $state, $mdMedia, $mdDialog) {
             "use strict";
+
+            var svc = this;
 
             $rootScope.tokenList = [];
 
-            this.addToken = function(service, token) {
+            function AddTokensDialogCtrl($mdDialog) {
+                var vm = this;
+
+                vm.hide = function() {
+                    $mdDialog.hide();
+                };
+
+                vm.saveTokens = function() {
+                    $mdDialog.hide({
+                        particle: vm.particleToken
+                    });
+                };
+            }
+
+            svc.addToken = function(service, token) {
                 if (service && token) {
                     $rootScope.tokenList.push({ service: service, token: token });
                 }
             };
 
-            this.removeToken = function(service) {
+            svc.removeToken = function(service) {
                 _.remove($rootScope.tokenList, function(i) {
                     return i.service === service;
                 });
             };
 
-            this.getToken = function(service) {
+            svc.getToken = function(service) {
                 return _.result(_.find($rootScope.tokenList, function(i) {
                     return i.service === service;
                 }), 'token');
             };
 
-            this.count = function() {
+            svc.count = function() {
                 return $rootScope.tokenList.length;
-            }
+            };
 
-            this.askForTokens = function(fromState, serviceName) {
+            svc.askForTokens = function(fromState, serviceName) {
                 var tokensToAskFor = serviceName || 'all';
-                $state.go('add-token', { returnView: fromState, askFor: tokensToAskFor });
-            }
+                var def = $q.defer();
+
+                if ($mdMedia('gt-md')) {
+                    $mdDialog.show({
+                        controller: AddTokensDialogCtrl,
+                        controllerAs: 'ctrl',
+                        templateUrl: 'views/addTokensView/addTokensDialog.tpl.html',
+                        parent: angular.element(document.body),
+                        locals: {
+                            askFor: tokensToAskFor
+                        },
+                        bindToController: true
+                    })
+                    .then(
+                        function(result) {
+                            for (var prop in result) {
+                                if (result.hasOwnProperty(prop)) {
+                                    svc.addToken(prop, result[prop]);
+                                }
+                            }
+                            def.resolve();
+                        },
+                        function(error) {
+                            def.reject(error);
+                        }
+                    );
+                }
+                else {
+                    $state.go('add-token', { returnView: fromState, askFor: tokensToAskFor });
+                    def.resolve();
+                }
+
+                return def.promise;
+            };
 
             return {
-                addToken: this.addToken,
-                removeToken: this.removeToken,
-                getToken: this.getToken,
-                count: this.count,
-                askForTokens: this.askForTokens
+                addToken: svc.addToken,
+                removeToken: svc.removeToken,
+                getToken: svc.getToken,
+                count: svc.count,
+                askForTokens: svc.askForTokens
             };
         }
     ]

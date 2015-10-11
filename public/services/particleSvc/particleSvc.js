@@ -19,7 +19,7 @@ angular.module('iotControl')
             };
 
             this.askForToken = function() {
-                accessTokenSvc.askForTokens('particle-view', 'particle');
+                return accessTokenSvc.askForTokens('particle-view', 'particle');
             }
 
             this.getDevices = function() {
