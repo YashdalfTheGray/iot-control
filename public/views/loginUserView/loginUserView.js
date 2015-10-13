@@ -14,7 +14,7 @@ angular.module('iotControl')
             };
 
             vm.signup = function() {
-                
+                $state.go('createuser');
             };
         }
     ]

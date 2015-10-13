@@ -3,8 +3,8 @@
 angular.module('iotControl')
 .controller('AddTokensViewCtrl',
     [
-        '$state', '$stateParams', 'accessTokenSvc',
-        function($state, $stateParams, accessTokenSvc) {
+        '$state', '$stateParams', 'accessTokenSvc', 'userSvc',
+        function($state, $stateParams, accessTokenSvc, userSvc) {
             "use strict";
 
             var vm = this;
@@ -15,6 +15,10 @@ angular.module('iotControl')
                     accessTokenSvc.addToken('particle', vm.particleToken);
                     $state.go($stateParams.returnView);
                 }
+            };
+
+            vm.login = function() {
+                userSvc.loginUser($stateParams.returnView);
             };
         }
     ]

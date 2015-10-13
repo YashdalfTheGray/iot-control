@@ -1,10 +1,10 @@
 /* global angular */
 
 angular.module('iotControl')
-.factory('UserSvc',
+.factory('userSvc',
     [
-        '$state', 'accessTokenSvc',
-        function($state, accessTokenSvc) {
+        '$rootScope', '$state',
+        function($rootScope, $state) {
             "use strict";
 
             var svc = this;

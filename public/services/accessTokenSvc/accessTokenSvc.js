@@ -3,15 +3,15 @@
 angular.module('iotControl')
 .factory('accessTokenSvc',
     [
-        '$rootScope', '$q', '$state', '$mdMedia', '$mdDialog',
-        function($rootScope, $q, $state, $mdMedia, $mdDialog) {
+        '$rootScope', '$q', '$state', '$mdMedia', '$mdDialog', 'userSvc',
+        function($rootScope, $q, $state, $mdMedia, $mdDialog, userSvc) {
             "use strict";
 
             var svc = this;
 
             $rootScope.tokenList = [];
 
-            function AddTokensDialogCtrl($mdDialog) {
+            function AddTokensDialogCtrl($mdDialog, userSvc) {
                 var vm = this;
 
                 vm.hide = function() {
@@ -22,6 +22,11 @@ angular.module('iotControl')
                     $mdDialog.hide({
                         particle: vm.particleToken
                     });
+                };
+
+                vm.login = function() {
+                    userSvc.loginUser(vm.fromState);
+                    $mdDialog.hide();
                 };
             }
 
@@ -58,7 +63,8 @@ angular.module('iotControl')
                         templateUrl: 'views/addTokensView/addTokensDialog.tpl.html',
                         parent: angular.element(document.body),
                         locals: {
-                            askFor: tokensToAskFor
+                            askFor: tokensToAskFor,
+                            fromState: fromState
                         },
                         bindToController: true
                     })
