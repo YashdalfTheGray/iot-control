@@ -30,8 +30,8 @@ angular.module('iotControl',
             templateUrl: 'views/createUserView/createUserView.tpl.html',
             controller: 'CreateUserViewCtrl as ctrl'
         })
-        .state('login?returnView', {
-            url: '/login',
+        .state('login', {
+            url: '/login?returnView',
             templateUrl: 'views/loginUserView/loginUserView.tpl.html',
             controller: 'LoginUserViewCtrl as ctrl'
         })
