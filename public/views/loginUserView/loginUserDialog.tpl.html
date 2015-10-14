@@ -9,7 +9,7 @@
     </div>
     </md-toolbar>
     <md-dialog-content layout="column">
-        <form>
+        <form layout="column">
             <md-input-container flex>
                 <label>Username</label>
                 <input ng-model="ctrl.username">
@@ -21,7 +21,7 @@
             <p></p>
             <md-button class="md-raised md-accent" ng-click="ctrl.login()" flex>Login</md-button>
         </form>
-        <md-divider></md-divider>
-        <md-button class="md-raised md-accent" ng-click="ctrl.signup()" flex>Signup</md-button>
-    </md-dialog-content>
+        <md-divider class="spacer-sm"></md-divider>
+        <md-button class="md-raised" ng-click="ctrl.signup()" flex>Signup</md-button>
+    </md-dialog-content> 
 </md-dialog>
