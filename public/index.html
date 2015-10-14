@@ -55,6 +55,9 @@
             </md-button>
             <h2 ng-if="!ctrl.isHome()"><span><a ui-sref="home">IoT Controller</a></span></h2>
             <h2 ng-if="ctrl.isHome()"><span>IoT Controller</span></h2>
+            <div flex></div>
+            <md-button ng-hide="ctrl.user.isLoggedIn()" ng-click="ctrl.login()">Login</md-button>
+            <md-button ng-show="ctrl.user.isLoggedIn()" ng-click="ctrl.showAccount()">{{ctrl.user.get("firstName")}}</md-button>
         </div>
     </md-toolbar>
 
