@@ -39,6 +39,7 @@ angular.module('iotControl')
                 var def = $q.defer();
 
                 if ($mdMedia('gt-md')) {
+                    $state.go(fromState);
                     $mdDialog.show({
                         controller: LoginUserDialogCtrl,
                         controllerAs: 'ctrl',
