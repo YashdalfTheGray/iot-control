@@ -3,8 +3,8 @@
 angular.module('iotControl')
 .controller('CreateUserViewCtrl',
     [
-        '$state', '$mdToast', 'server',
-        function($state, $mdToast, server) {
+        '$state', '$mdToast', '$firebaseObject', 'server', 'toast',
+        function($state, $mdToast, $firebaseObject, server, toast) {
             "use strict";
 
             var vm = this;
@@ -14,10 +14,7 @@ angular.module('iotControl')
             vm.signup = function() {
                 ref.createUser({
                     email: vm.email,
-                    password: SHA512.hex(vm.password),
-                    firstName: vm.firstName,
-                    lastName: vm.lastName,
-                    tokens: vm.tokens
+                    password: SHA512.hex(vm.password)
                 },
                 function(error, userData) {
                     if (error) {
@@ -27,10 +24,21 @@ angular.module('iotControl')
                         $mdToast.show(
                             $mdToast.simple()
                             .content('User successfully created. Please log in!')
-                            .position('bottom right')
-                            .hideDelay(3000)
+                            .position(toast.position)
+                            .hideDelay(toast.durationLong)
                         );
-                        console.log(userData);
+                        /*var userRef = new Firebase(server.uri + '/users/' + userData.uid);
+                        var userObj = $firebaseObject(userRef);
+                        userObj.firstName = vm.firstName;
+                        userObj.lastName = vm.lastName;
+                        userObj.tokens = vm.tokens;
+                        userObj.$save().then(function(ref) {
+                            console.log(ref);
+                        },
+                        function(error) {
+                            console.log(error);
+                        });*/
+
                         $state.go('home');
                     }
                 });

@@ -1,8 +1,8 @@
 angular.module('iotControl')
 .controller('ParticleViewCtrl',
     [
-        '$state', '$mdToast', 'particleSvc', 'clearInputSvc',
-        function($state, $mdToast, particleSvc, clearInputSvc) {
+        '$state', '$mdToast', 'particleSvc', 'clearInputSvc', 'toast',
+        function($state, $mdToast, particleSvc, clearInputSvc, toast) {
             "use strict";
 
             var vm = this;
@@ -50,8 +50,8 @@ angular.module('iotControl')
                         $mdToast.show(
                             $mdToast.simple()
                             .content('Function ' + func + ' executed successfully!')
-                            .position('top right')
-                            .hideDelay(3000)
+                            .position(toast.position)
+                            .hideDelay(toast.durationLong)
                         );
                     },
                     function(error) {
