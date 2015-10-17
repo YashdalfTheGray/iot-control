@@ -12,6 +12,7 @@ angular.module('iotControl')
 
             vm.login = function() {
                 var SHA512 = new Hashes.SHA512();
+                
                 ref.authWithPassword({
                     email: vm.email,
                     password: SHA512.hex(vm.password)
@@ -27,6 +28,7 @@ angular.module('iotControl')
                             .position(toast.position)
                             .hideDelay(toast.durationLong)
                         );
+                        console.log(authData);
                     }
                 });
             };
