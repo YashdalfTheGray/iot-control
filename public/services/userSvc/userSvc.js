@@ -9,8 +9,9 @@ angular.module('iotControl')
 
             var svc = this;
 
-            function LoginUserDialogCtrl($state, $mdDialog) {
+            function LoginUserDialogCtrl($state, $mdDialog, $mdToast, toast) {
                 var vm = this;
+                var ref = new Firebase('https://iot-control.firebaseio.com');
 
                 vm.hide = function() {
                     $mdDialog.hide();
@@ -18,7 +19,26 @@ angular.module('iotControl')
 
                 vm.login = function() {
                     var SHA512 = new Hashes.SHA512();
-                    console.log(SHA512.hex(vm.password));
+                    
+                    ref.authWithPassword({
+                        email: vm.email,
+                        password: SHA512.hex(vm.password)
+                    },
+                    function(error, authData) {
+                        if (error) {
+                            console.log(error);
+                        }
+                        else {
+                            $mdToast.show(
+                                $mdToast.simple()
+                                .content('User login successful!')
+                                .position(toast.position)
+                                .hideDelay(toast.durationLong)
+                            );
+                            console.log(authData);
+                        }
+                    });
+                    $mdDialog.hide();
                 };
 
                 vm.signup = function() {
@@ -39,6 +59,7 @@ angular.module('iotControl')
                 var def = $q.defer();
 
                 if ($mdMedia('gt-md')) {
+                    $state.go(fromState);
                     $mdDialog.show({
                         controller: LoginUserDialogCtrl,
                         controllerAs: 'ctrl',

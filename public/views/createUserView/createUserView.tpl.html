@@ -1,3 +1,32 @@
 <md-content layout-padding>
     <h2 flex>Sign up</h2>
+    <form flex>
+        <md-input-container flex>
+            <label>Email</label>
+            <input ng-model="ctrl.email">
+        </md-input-container>
+        <md-input-container flex>
+            <label>Password</label>
+            <input ng-model="ctrl.password" type="password">
+        </md-input-container>
+        <!--         
+        <div layout="row" flex>
+            <md-input-container flex>
+                <label>First Name</label>
+                <input ng-model="ctrl.firstName">
+            </md-input-container>
+            <md-input-container flex>
+                <label>Last Name</label>
+                <input ng-model="ctrl.lastName">
+            </md-input-container>
+        </div>
+        <h3>Access Tokens</h3>
+        <md-input-container flex>
+            <label>Particle</label>
+            <input ng-model="ctrl.tokens.particle" name="particleToken">
+        </md-input-container> 
+        -->
+        <p></p>
+        <md-button class="md-raised md-accent" ng-click="ctrl.signup()" flex>Signup</md-button>
+    </form>
 </md-content>

@@ -3,15 +3,34 @@
 angular.module('iotControl')
 .controller('LoginUserViewCtrl', 
     [
-        '$state', 'server',
-        function($state, server) {
+        '$state', '$mdToast', 'server', 'toast',
+        function($state, $mdToast, server, toast) {
             "use strict";
 
             var vm = this;
+            var ref = new Firebase('https://iot-control.firebaseio.com');
 
             vm.login = function() {
                 var SHA512 = new Hashes.SHA512();
-                console.log(SHA512.hex(vm.password));
+                
+                ref.authWithPassword({
+                    email: vm.email,
+                    password: SHA512.hex(vm.password)
+                },
+                function(error, authData) {
+                    if (error) {
+                        console.log(error);
+                    }
+                    else {
+                        $mdToast.show(
+                            $mdToast.simple()
+                            .content('User login successful!')
+                            .position(toast.position)
+                            .hideDelay(toast.durationLong)
+                        );
+                        console.log(authData);
+                    }
+                });
             };
 
             vm.signup = function() {
