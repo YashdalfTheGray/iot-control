@@ -35,6 +35,11 @@ angular.module('iotControl',
             templateUrl: 'views/loginUserView/loginUserView.tpl.html',
             controller: 'LoginUserViewCtrl as ctrl'
         })
+        .state('usersettings', {
+            url: '/usersettings',
+            templateUrl: 'views/userSettingsView/userSettingsView.tpl.html',
+            controller: 'UserSettingsViewCtrl as ctrl'
+        })
         .state('particle-view', {
             url: '/particle',
             templateUrl: 'views/particleView/particleView.tpl.html',
