@@ -1,7 +1,7 @@
 /* global angular */
 
 angular.module('iotControl')
-.controller('UserSettingsCtrl', 
+.controller('DashboardCtrl', 
     [
         'userSvc',
         function(userSvc) {
