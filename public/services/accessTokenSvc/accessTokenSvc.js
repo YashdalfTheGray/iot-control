@@ -25,7 +25,7 @@ angular.module('iotControl')
                 };
 
                 vm.login = function() {
-                    userSvc.loginUser(vm.fromState);
+                    userSvc.showLogin(vm.fromState);
                     $mdDialog.hide();
                 };
             }

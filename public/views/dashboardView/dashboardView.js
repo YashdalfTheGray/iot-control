@@ -7,7 +7,11 @@ angular.module('iotControl')
         function(userSvc) {
             "use strict";
 
-            var vm = this;    
+            var vm = this;
+
+            if(!userSvc.isLoggedIn()) {
+                userSvc.showLogin();
+            }
         }
     ]
 );

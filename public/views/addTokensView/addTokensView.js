@@ -18,7 +18,7 @@ angular.module('iotControl')
             };
 
             vm.login = function() {
-                userSvc.loginUser($stateParams.returnView);
+                userSvc.showLogin($stateParams.returnView);
             };
         }
     ]

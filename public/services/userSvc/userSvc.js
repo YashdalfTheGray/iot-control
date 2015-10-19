@@ -36,9 +36,9 @@ angular.module('iotControl')
                                 .hideDelay(toast.durationLong)
                             );
                             console.log(authData);
+                            $mdDialog.hide(authData);
                         }
-                    });
-                    $mdDialog.hide();
+                    }, { remember: 'sessionOnly' });
                 };
 
                 vm.signup = function() {
@@ -55,7 +55,7 @@ angular.module('iotControl')
                 return "Testerson";
             };
 
-            svc.loginUser = function(fromState) {
+            svc.showLogin = function(fromState) {
                 var def = $q.defer();
 
                 if ($mdMedia('gt-md')) {
@@ -91,7 +91,7 @@ angular.module('iotControl')
             return {
                 isLoggedIn: svc.isLoggedIn,
                 get: svc.get,
-                loginUser: svc.loginUser
+                showLogin: svc.showLogin
             };
         }
     ]
