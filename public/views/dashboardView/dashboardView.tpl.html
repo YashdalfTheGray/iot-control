@@ -22,7 +22,10 @@
             <input ng-model="ctrl.tokens.particle" name="particleToken">
         </md-input-container>
         <p></p>
-        <md-button class="md-raised md-accent" ng-click="ctrl.saveInfo()" flex>Save</md-button>
-        <md-button class="md-raised md-warn" ng-click="ctrl.logout()" flex>Logout</md-button>
+        <div layout="row" flex>
+            <md-button class="md-raised md-accent" ng-click="ctrl.saveInfo()">Save</md-button>
+            <div flex></div>
+            <md-button class="md-raised md-warn" ng-click="ctrl.logout()">Logout</md-button>
+        </div>
     </form>
 </md-content>

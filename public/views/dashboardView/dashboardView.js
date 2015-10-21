@@ -3,8 +3,8 @@
 angular.module('iotControl')
 .controller('DashboardViewCtrl', 
     [
-        '$firebaseObject', 'userSvc', 'server',
-        function($firebaseObject, userSvc, server) {
+        '$state', '$firebaseObject', 'userSvc', 'accessTokenSvc', 'server', 'toast',
+        function($state, $firebaseObject, userSvc, accessTokenSvc, server, toast) {
             "use strict";
 
             var vm = this;
@@ -30,18 +30,49 @@ angular.module('iotControl')
             vm.saveInfo = function() {
                 var userRef = new Firebase(server.uri + '/users/' + userSvc.get('uid'));
                 var userObj = $firebaseObject(userRef);
-                console.log(userObj);
-                /*
-                userObj.firstName = vm.firstName;
-                userObj.lastName = vm.lastName;
-                userObj.tokens = vm.tokens;
-                userObj.$save().then(function(ref) {
-                    console.log(ref);
-                },
-                function(error) {
-                    console.log(error);
-                });
-                */
+                var changed = false;
+
+                if (userObj.firstName !== vm.firstName) {
+                    userObj.firstName = vm.firstName;
+                    changed = true;
+                }
+                if (userObj.lastName !== vm.lastName) {
+                    userObj.lastName = vm.lastName;
+                    changed = true;
+                }
+                if (userObj.tokens) {
+                    for (var prop in vm.tokens) {
+                        if (vm.tokens.hasOwnProperty(prop)) {
+                            accessTokenSvc.addToken(prop, vm.tokens[prop]);
+                            if (userObj.tokens[prop] !== vm.tokens[prop]) {
+                                userObj.tokens[prop] = vm.tokens[prop];
+                                changed = true;
+                            }
+                        }
+                    }
+                }
+                else {
+                    userObj.tokens = vm.tokens;
+                    changed = true;
+                }
+
+                if (changed) {
+                    userObj.$save().then(function(ref) {
+                        $state.go('home');
+                        changed = false;
+                    },
+                    function(error) {
+                        console.log(error);
+                    });
+                }
+                else {
+                    $mdToast.show(
+                        $mdToast.simple()
+                        .content('Nothing to save!')
+                        .position(toast.position)
+                        .hideDelay(toast.durationLong)
+                    );
+                }
             };
 
             vm.logout = function() {
