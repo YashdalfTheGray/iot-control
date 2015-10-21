@@ -2,6 +2,10 @@
     <h2 flex>Dashboard</h2>
     <p ng-if="ctrl.isNewUser()" flex>Please enter name and tokens to continue.</p>
     <form flex>
+        <md-input-container flex>
+            <label>Email</label>
+            <input ng-model="ctrl.email" name="userEmail" type="email">
+        </md-input-container>
         <div layout="row" flex>
             <md-input-container flex>
                 <label>First Name</label>
@@ -19,5 +23,6 @@
         </md-input-container>
         <p></p>
         <md-button class="md-raised md-accent" ng-click="ctrl.saveInfo()" flex>Save</md-button>
+        <md-button class="md-raised md-warn" ng-click="ctrl.logout()" flex>Logout</md-button>
     </form>
 </md-content>

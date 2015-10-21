@@ -10,7 +10,17 @@ angular.module('iotControl')
             var vm = this;
 
             if(!userSvc.isLoggedIn()) {
-                userSvc.showLogin();
+                userSvc.showLogin('dashboard').then(
+                    function() {
+                        vm.email = userSvc.get('email');
+                    },
+                    function(error) {
+                        console.log(error);
+                    }
+                );
+            }
+            else {
+                vm.email = userSvc.get('email');
             }
 
             vm.isNewUser = function() {
@@ -32,6 +42,10 @@ angular.module('iotControl')
                     console.log(error);
                 });
                 */
+            };
+
+            vm.logout = function() {
+                userSvc.logoutUser();
             };
         }
     ]

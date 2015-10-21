@@ -113,6 +113,7 @@ angular.module('iotControl')
                             $rootScope.account.loggedIn = true;
                             $rootScope.account.uid = authData.uid;
                             $rootScope.account.token = authData.token;
+                            $rootScope.account.email = authData.password.email;
                             $rootScope.account._authData = authData;
 
                             def.resolve($rootScope.account);
@@ -126,6 +127,7 @@ angular.module('iotControl')
 
             svc.logoutUser = function() {
                 $rootScope.account = {};
+                $state.go('home');
             };
 
             return {
