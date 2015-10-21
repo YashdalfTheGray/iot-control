@@ -60,7 +60,7 @@ angular.module('iotControl',
     uri: 'https://iot-control.firebaseio.com'
 })
 .constant('toast', {
-    position: 'bottom right',
+    position: 'top right',
     durationShort: 1000,
     durationLong: 3000
 });

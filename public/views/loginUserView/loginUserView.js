@@ -16,7 +16,12 @@ angular.module('iotControl')
                 .then(
                     function(result) {
                         console.log(result);
-                        $state.go('home');
+                        if (result.firstName === 'New User') {
+                            $state.go('dashboard');
+                        }
+                        else {
+                            $state.go('home');
+                        }
                     },
                     function(error) {
                         console.log(error);

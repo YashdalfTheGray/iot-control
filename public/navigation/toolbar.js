@@ -22,7 +22,7 @@ angular.module('iotControl')
             };
 
             vm.showAccount = function() {
-                console.log('Navigating to the user account page');
+                $state.go('dashboard');
             }
 
             vm.user = userSvc;

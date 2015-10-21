@@ -26,6 +26,9 @@ angular.module('iotControl')
                     .then(
                         function(result) {
                             console.log(result);
+                            if (result.firstName === 'New User') {
+                                $state.go('dashboard');
+                            }
                             $mdDialog.hide(result);
                         },
                         function(error) {
@@ -51,11 +54,9 @@ angular.module('iotControl')
 
             svc.get = function(propName) {
                 if(propName === 'firstName' && !$rootScope.account.firstName) {
-                    return 'New User';
+                    $rootScope.account.firstName = 'New User';
                 }
-                else {
-                    return $rootScope.account[propName];
-                }
+                return $rootScope.account[propName];
             };
 
             svc.showLogin = function(fromState) {
