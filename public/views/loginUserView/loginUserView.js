@@ -15,7 +15,6 @@ angular.module('iotControl')
                 userSvc.loginUser(vm.email, SHA512.hex(vm.password))
                 .then(
                     function(result) {
-                        console.log(result);
                         if (result.firstName === 'New User') {
                             $state.go('dashboard');
                         }

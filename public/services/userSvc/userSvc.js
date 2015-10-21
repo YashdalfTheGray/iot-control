@@ -25,7 +25,6 @@ angular.module('iotControl')
                     userSvc.loginUser(vm.email, SHA512.hex(vm.password))
                     .then(
                         function(result) {
-                            console.log(result);
                             if (result.firstName === 'New User') {
                                 $state.go('dashboard');
                             }
@@ -114,7 +113,7 @@ angular.module('iotControl')
                             $rootScope.account.loggedIn = true;
                             $rootScope.account.uid = authData.uid;
                             $rootScope.account.token = authData.token;
-                            $rootScope.account.authData = authData;
+                            $rootScope.account._authData = authData;
 
                             def.resolve($rootScope.account);
                         }

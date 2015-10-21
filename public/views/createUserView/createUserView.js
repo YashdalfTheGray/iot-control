@@ -27,17 +27,6 @@ angular.module('iotControl')
                             .position(toast.position)
                             .hideDelay(toast.durationLong)
                         );
-                        /*var userRef = new Firebase(server.uri + '/users/' + userData.uid);
-                        var userObj = $firebaseObject(userRef);
-                        userObj.firstName = vm.firstName;
-                        userObj.lastName = vm.lastName;
-                        userObj.tokens = vm.tokens;
-                        userObj.$save().then(function(ref) {
-                            console.log(ref);
-                        },
-                        function(error) {
-                            console.log(error);
-                        });*/
 
                         $state.go('home');
                     }
