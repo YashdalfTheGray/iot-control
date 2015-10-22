@@ -3,8 +3,8 @@
 angular.module('iotControl')
 .factory('userSvc',
     [
-        '$rootScope', '$q', '$state', '$mdDialog', '$mdMedia', '$mdToast', 'server', 'toast',
-        function($rootScope, $q, $state, $mdDialog, $mdMedia, $mdToast, server, toast) {
+        '$rootScope', '$q', '$state', '$firebaseObject', '$mdDialog', '$mdMedia', '$mdToast', 'server', 'toast',
+        function($rootScope, $q, $state, $firebaseObject, $mdDialog, $mdMedia, $mdToast, server, toast) {
             "use strict";
 
             var svc = this;
@@ -75,7 +75,6 @@ angular.module('iotControl')
                     })
                     .then(
                         function(result) {
-                            // parse the token object here and store it in $rootScope
                             def.resolve();
                         },
                         function(error) {
@@ -115,7 +114,6 @@ angular.module('iotControl')
                             $rootScope.account.token = authData.token;
                             $rootScope.account.email = authData.password.email;
                             $rootScope.account._authData = authData;
-
                             def.resolve($rootScope.account);
                         }
                     },
@@ -127,6 +125,7 @@ angular.module('iotControl')
 
             svc.logoutUser = function() {
                 $rootScope.account = {};
+                ref.unauth();
                 $state.go('home');
             };
 
