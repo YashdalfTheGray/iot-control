@@ -52,6 +52,10 @@ angular.module('iotControl')
                 return $rootScope.tokenList.length;
             };
 
+            svc.trashTokens = function() {
+                $rootScope.tokenList = [];
+            }
+
             svc.askForTokens = function(fromState, serviceName) {
                 var tokensToAskFor = serviceName || 'all';
                 var def = $q.defer();
@@ -95,6 +99,7 @@ angular.module('iotControl')
                 removeToken: svc.removeToken,
                 getToken: svc.getToken,
                 count: svc.count,
+                trashTokens: svc.trashTokens,
                 askForTokens: svc.askForTokens
             };
         }

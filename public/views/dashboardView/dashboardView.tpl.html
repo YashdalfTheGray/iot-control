@@ -9,21 +9,21 @@
         <div layout="row" flex>
             <md-input-container flex>
                 <label>First Name</label>
-                <input ng-model="ctrl.firstName">
+                <input ng-model="ctrl.userObj.firstName">
             </md-input-container>
             <md-input-container flex>
                 <label>Last Name</label>
-                <input ng-model="ctrl.lastName">
+                <input ng-model="ctrl.userObj.lastName">
             </md-input-container>
         </div>
         <h3>Access Tokens</h3>
         <md-input-container flex>
             <label>Particle</label>
-            <input ng-model="ctrl.tokens.particle" name="particleToken">
+            <input ng-model="ctrl.userObj.tokens.particle" name="particleToken">
         </md-input-container>
         <p></p>
         <div layout="row" flex>
-            <md-button class="md-raised md-accent" ng-click="ctrl.saveInfo()">Save</md-button>
+            <md-button class="md-raised md-accent" ng-click="ctrl.doneEditing()">Done</md-button>
             <div flex></div>
             <md-button class="md-raised md-warn" ng-click="ctrl.logout()">Logout</md-button>
         </div>

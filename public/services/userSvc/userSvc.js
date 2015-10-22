@@ -58,6 +58,10 @@ angular.module('iotControl')
                 return $rootScope.account[propName];
             };
 
+            svc.set = function(propName, value) {
+                $rootScope.account[propName] = value;
+            }
+
             svc.showLogin = function(fromState) {
                 var def = $q.defer();
 
@@ -125,13 +129,14 @@ angular.module('iotControl')
 
             svc.logoutUser = function() {
                 $rootScope.account = {};
-                ref.unauth();
                 $state.go('home');
+                ref.unauth();
             };
 
             return {
                 isLoggedIn: svc.isLoggedIn,
                 get: svc.get,
+                set: svc.set,
                 showLogin: svc.showLogin,
                 loginUser: svc.loginUser,
                 logoutUser: svc.logoutUser

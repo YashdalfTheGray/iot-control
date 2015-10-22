@@ -3,16 +3,39 @@
 angular.module('iotControl')
 .controller('DashboardViewCtrl', 
     [
-        '$state', '$firebaseObject', 'userSvc', 'accessTokenSvc', 'server', 'toast',
-        function($state, $firebaseObject, userSvc, accessTokenSvc, server, toast) {
+        '$state', '$firebaseObject', '$mdToast', 'userSvc', 'accessTokenSvc', 'server', 'toast',
+        function($state, $firebaseObject, $mdToast, userSvc, accessTokenSvc, server, toast) {
             "use strict";
 
             var vm = this;
+            var userRef = new Firebase(server.uri + '/users/' + userSvc.get('uid'));
+            
+            vm.userObj = $firebaseObject(userRef);
+
+            function initView() {
+                vm.email = userSvc.get('email');
+                vm.userObj.$loaded().then(
+                    function(result) {
+                        for (var prop in result.tokens) {
+                            if (result.tokens.hasOwnProperty(prop)) {
+                                accessTokenSvc.addToken(prop, result.tokens[prop]);
+                            }
+                        }
+                        userSvc.set('firstName', result.firstName);
+                        userSvc.set('lastName', result.lastName);
+                    },
+                    function(error) {
+                        console.log(error);
+                    }
+                );
+            };
 
             if(!userSvc.isLoggedIn()) {
-                userSvc.showLogin('dashboard').then(
+                userSvc.showLogin('dashboard')
+                .then(
                     function() {
                         vm.email = userSvc.get('email');
+                        initView();
                     },
                     function(error) {
                         console.log(error);
@@ -20,62 +43,28 @@ angular.module('iotControl')
                 );
             }
             else {
-                vm.email = userSvc.get('email');
+                initView();
             }
 
             vm.isNewUser = function() {
                 return userSvc.get('firstName') === 'New User';
             };
 
-            vm.saveInfo = function() {
-                var userRef = new Firebase(server.uri + '/users/' + userSvc.get('uid'));
-                var userObj = $firebaseObject(userRef);
-                var changed = false;
-
-                if (userObj.firstName !== vm.firstName) {
-                    userObj.firstName = vm.firstName;
-                    changed = true;
-                }
-                if (userObj.lastName !== vm.lastName) {
-                    userObj.lastName = vm.lastName;
-                    changed = true;
-                }
-                if (userObj.tokens) {
-                    for (var prop in vm.tokens) {
-                        if (vm.tokens.hasOwnProperty(prop)) {
-                            accessTokenSvc.addToken(prop, vm.tokens[prop]);
-                            if (userObj.tokens[prop] !== vm.tokens[prop]) {
-                                userObj.tokens[prop] = vm.tokens[prop];
-                                changed = true;
-                            }
-                        }
-                    }
-                }
-                else {
-                    userObj.tokens = vm.tokens;
-                    changed = true;
-                }
-
-                if (changed) {
-                    userObj.$save().then(function(ref) {
+            vm.doneEditing = function() {
+                console.log(vm.userObj);
+                vm.userObj.$save().then(
+                    function() {
                         $state.go('home');
-                        changed = false;
                     },
                     function(error) {
                         console.log(error);
-                    });
-                }
-                else {
-                    $mdToast.show(
-                        $mdToast.simple()
-                        .content('Nothing to save!')
-                        .position(toast.position)
-                        .hideDelay(toast.durationLong)
-                    );
-                }
+                    }
+                );
+                
             };
 
             vm.logout = function() {
+                accessTokenSvc.trashTokens();
                 userSvc.logoutUser();
             };
         }
