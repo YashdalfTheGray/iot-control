@@ -129,8 +129,8 @@ angular.module('iotControl')
 
             svc.logoutUser = function() {
                 $rootScope.account = {};
-                $state.go('home');
                 ref.unauth();
+                $state.go('home');
             };
 
             return {
