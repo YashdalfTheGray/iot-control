@@ -44,6 +44,11 @@ angular.module('iotControl',
             url: '/particle',
             templateUrl: 'views/particleView/particleView.tpl.html',
             controller: 'ParticleViewCtrl as ctrl'
+        })
+        .state('dummy', {
+            url: '/dummy',
+            templateUrl: 'views/dummyStateView/dummyStateView.tpl.html',
+            controller: 'DummyStateViewCtrl as ctrl'
         });
         $urlRouterProvider.otherwise('/');
 
