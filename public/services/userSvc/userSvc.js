@@ -3,12 +3,13 @@
 angular.module('iotControl')
 .factory('userSvc',
     [
-        '$rootScope', '$q', '$state', '$firebaseObject', '$mdDialog', '$mdMedia', '$mdToast', 'server', 'toast',
-        function($rootScope, $q, $state, $firebaseObject, $mdDialog, $mdMedia, $mdToast, server, toast) {
+        '$rootScope', '$q', '$state', '$firebaseAuth', '$mdDialog', '$mdMedia', '$mdToast', 'server', 'toast',
+        function($rootScope, $q, $state, $firebaseAuth, $mdDialog, $mdMedia, $mdToast, server, toast) {
             "use strict";
 
             var svc = this;
             var ref = new Firebase(server.uri);
+            var authObj = $firebaseAuth(ref);
 
             $rootScope.account = {};
 
@@ -97,31 +98,30 @@ angular.module('iotControl')
             svc.loginUser = function(email, hashPassword) {
                 var def = $q.defer();
 
-                ref.authWithPassword(
+                authObj.$authWithPassword(
                     {
                         email: email,
                         password: hashPassword
                     },
-                    function(error, authData) {
-                        if (error) {
-                            def.reject(error);
-                        }
-                        else {
-                            $mdToast.show(
-                                $mdToast.simple()
-                                .content('User login successful!')
-                                .position(toast.position)
-                                .hideDelay(toast.durationLong)
-                            );
-                            $rootScope.account.loggedIn = true;
-                            $rootScope.account.uid = authData.uid;
-                            $rootScope.account.token = authData.token;
-                            $rootScope.account.email = authData.password.email;
-                            $rootScope.account._authData = authData;
-                            def.resolve($rootScope.account);
-                        }
-                    },
                     { remember: 'sessionOnly' }
+                ).then(
+                    function(authData) {
+                        $mdToast.show(
+                            $mdToast.simple()
+                            .content('User login successful!')
+                            .position(toast.position)
+                            .hideDelay(toast.durationLong)
+                        );
+                        $rootScope.account.loggedIn = true;
+                        $rootScope.account.uid = authData.uid;
+                        $rootScope.account.token = authData.token;
+                        $rootScope.account.email = authData.password.email;
+                        $rootScope.account._authData = authData;
+                        def.resolve($rootScope.account);
+                    },
+                    function(error) {
+                        def.reject(error);
+                    }
                 );
 
                 return def.promise;
