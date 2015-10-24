@@ -63,9 +63,4 @@ angular.module('iotControl',
 ])
 .constant('server', {
     uri: 'https://iot-control.firebaseio.com'
-})
-.constant('toast', {
-    position: 'top right',
-    durationShort: 1000,
-    durationLong: 3000
 });
