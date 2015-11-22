@@ -53,6 +53,13 @@ angular.module('iotControl')
             vm.doneEditing = function() {
                 vm.userObj.$save().then(
                     function() {
+                        for (var prop in vm.userObj) {
+                            if (vm.userObj.hasOwnProperty(prop)) {
+                                accessTokenSvc.addToken(prop, vm.userObj[prop]);
+                            }
+                        }
+                        userSvc.set('firstName', vm.userObj.firstName);
+                        userSvc.set('lastName', vm.userObj.lastName);
                         $state.go('home');
                     },
                     function(error) {
