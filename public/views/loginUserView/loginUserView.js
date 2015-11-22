@@ -3,8 +3,8 @@
 angular.module('iotControl')
 .controller('LoginUserViewCtrl', 
     [
-        '$state', '$mdToast', 'userSvc',
-        function($state, $mdToast, userSvc) {
+        '$state', 'toastSvc', 'userSvc',
+        function($state, toastSvc, userSvc) {
             "use strict";
 
             var vm = this;

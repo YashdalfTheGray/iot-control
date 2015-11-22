@@ -3,8 +3,8 @@
 angular.module('iotControl')
 .controller('CreateUserViewCtrl',
     [
-        '$state', '$mdToast', '$firebaseObject', 'server', 'toast',
-        function($state, $mdToast, $firebaseObject, server, toast) {
+        '$state', '$firebaseObject', 'server', 'toastSvc',
+        function($state, $firebaseObject, server, toastSvc) {
             "use strict";
 
             var vm = this;
@@ -21,13 +21,7 @@ angular.module('iotControl')
                         console.log(error);
                     }
                     else {
-                        $mdToast.show(
-                            $mdToast.simple()
-                            .content('User successfully created. Please log in!')
-                            .position(toast.position)
-                            .hideDelay(toast.durationLong)
-                        );
-
+                        toastSvc.show('User successfully created. Please log in!');
                         $state.go('home');
                     }
                 });

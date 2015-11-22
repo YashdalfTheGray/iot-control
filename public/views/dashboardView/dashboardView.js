@@ -3,8 +3,8 @@
 angular.module('iotControl')
 .controller('DashboardViewCtrl', 
     [
-        '$state', '$firebaseObject', '$mdToast', 'userSvc', 'accessTokenSvc', 'server', 'toast',
-        function($state, $firebaseObject, $mdToast, userSvc, accessTokenSvc, server, toast) {
+        '$state', '$firebaseObject', 'userSvc', 'accessTokenSvc', 'server', 'toastSvc',
+        function($state, $firebaseObject, userSvc, accessTokenSvc, server, toastSvc) {
             "use strict";
 
             var vm = this;

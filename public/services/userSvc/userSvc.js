@@ -3,8 +3,8 @@
 angular.module('iotControl')
 .factory('userSvc',
     [
-        '$rootScope', '$q', '$state', '$firebaseAuth', '$mdDialog', '$mdMedia', '$mdToast', 'server', 'toast',
-        function($rootScope, $q, $state, $firebaseAuth, $mdDialog, $mdMedia, $mdToast, server, toast) {
+        '$rootScope', '$q', '$state', '$firebaseAuth', '$mdDialog', '$mdMedia', 'toastSvc', 'server',
+        function($rootScope, $q, $state, $firebaseAuth, $mdDialog, $mdMedia, toastSvc, server) {
             "use strict";
 
             var svc = this;
@@ -13,7 +13,7 @@ angular.module('iotControl')
 
             $rootScope.account = {};
 
-            function LoginUserDialogCtrl($state, $mdDialog, $mdToast, userSvc) {
+            function LoginUserDialogCtrl($state, $mdDialog, toastSvc, userSvc) {
                 var vm = this;
 
                 vm.hide = function() {
@@ -106,12 +106,7 @@ angular.module('iotControl')
                     { remember: 'sessionOnly' }
                 ).then(
                     function(authData) {
-                        $mdToast.show(
-                            $mdToast.simple()
-                            .content('User login successful!')
-                            .position(toast.position)
-                            .hideDelay(toast.durationLong)
-                        );
+                        toastSvc.show('User login successful!');
                         $rootScope.account.loggedIn = true;
                         $rootScope.account.uid = authData.uid;
                         $rootScope.account.token = authData.token;
