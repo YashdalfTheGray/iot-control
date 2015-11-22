@@ -51,7 +51,6 @@ angular.module('iotControl')
             };
 
             vm.doneEditing = function() {
-                console.log(vm.userObj);
                 vm.userObj.$save().then(
                     function() {
                         $state.go('home');
