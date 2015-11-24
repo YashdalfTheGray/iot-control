@@ -22,6 +22,7 @@ angular.module('iotControl')
                     .content(message)
                     .position(toastPosition)
                     .hideDelay(toastDuration)
+                    .action('OK')
                 );
             };
 
