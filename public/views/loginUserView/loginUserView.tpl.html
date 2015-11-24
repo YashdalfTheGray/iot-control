@@ -9,6 +9,9 @@
             <label>Password</label>
             <input ng-model="ctrl.password" type="password">
         </md-input-container>
+        <div layout="row" layout-align="end center">
+                <small><a href ng-click="ctrl.resetPassword()">Reset Password</a></small>
+            </div>
         <p></p>
         <md-button class="md-raised md-accent" ng-click="ctrl.login()" flex>Login</md-button>
         <md-button class="md-raised" ng-click="ctrl.signup()" flex>Signup</md-button>
