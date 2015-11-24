@@ -31,6 +31,19 @@ angular.module('iotControl')
             vm.signup = function() {
                 $state.go('createuser');
             };
+
+            vm.resetPassword = function() {
+                if (!vm.email) {
+                    toastSvc.show('Please enter an email to reset your password.');
+                }
+                else {
+                    userSvc.resetPassword(vm.email).then(function(message) {
+                        toastSvc.show(message);
+                    }).catch(function(error) {
+                        console.log(error);
+                    });
+                }
+            }
         }
     ]
 );
