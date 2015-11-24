@@ -128,13 +128,18 @@ angular.module('iotControl')
                 $state.go('home');
             };
 
+            svc.resetPassword = function(email) {
+                return authObj.$resetPassword({ email: email });
+            };
+
             return {
                 isLoggedIn: svc.isLoggedIn,
                 get: svc.get,
                 set: svc.set,
                 showLogin: svc.showLogin,
                 loginUser: svc.loginUser,
-                logoutUser: svc.logoutUser
+                logoutUser: svc.logoutUser,
+                resetPassword: svc.resetPassword
             };
         }
     ]
