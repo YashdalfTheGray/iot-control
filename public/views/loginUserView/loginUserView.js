@@ -37,8 +37,8 @@ angular.module('iotControl')
                     toastSvc.show('Please enter an email to reset your password.');
                 }
                 else {
-                    userSvc.resetPassword(vm.email).then(function(message) {
-                        toastSvc.show(message);
+                    userSvc.resetPassword(vm.email).then(function() {
+                        toastSvc.show('Password reset email sent successfully!');
                     }).catch(function(error) {
                         console.log(error);
                     });
